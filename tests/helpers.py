@@ -1,4 +1,4 @@
-from colvar import Colvar
+from cvtoolkit import Colvar
 import numpy as np
 import os
 

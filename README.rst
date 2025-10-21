@@ -5,6 +5,20 @@ A Python package to read and write PLUMED colvar files.
 
 * Free software: MIT license
 
+Installation
+-----------------
+You can either install via pip:
+
+.. code-block:: bash
+
+    pip install colvar-toolkit
+
+Or install from the repository:
+
+.. code-block:: bash
+
+    pip install git+https://github.com/k9cdt/colvar-toolkit.git
+
 Example usage
 -----------------
 
@@ -12,7 +26,7 @@ Basic read/write operations:
 
 .. code-block:: python
 
-    from colvar import Colvar
+    from cvtoolkit import Colvar
 
     # Read a colvar file
     cv = Colvar.from_file('colvar.dat')
