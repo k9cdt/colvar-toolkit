@@ -12,4 +12,5 @@ __description__ = "A Python library for PLUMED-style colvar files"
 __url__ = "https://github.com/k9cdt/colvar"
 
 # Optionally, import key classes or functions here
-from .colvar import Colvar  # noqa: F401
+from .colvar import Colvar      # noqa: F401
+from .methods import *          # noqa: F401
