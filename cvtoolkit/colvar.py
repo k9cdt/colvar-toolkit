@@ -57,7 +57,7 @@ class Colvar(object):
             self._time = self._time[::interval]
         return self
 
-    def read(self, filename: str, stride: int = 1) -> Colvar:
+    def read(self, filename: str) -> Colvar:
         '''
         Read a PLUMED-style colvar file into the object.
 
@@ -70,9 +70,9 @@ class Colvar(object):
         :raises ValueError: If the number of columns in the file does not match the number of headers.
         '''
 
-        self._filename = filename
         if not Path(filename).exists():
             raise FileNotFoundError(f"File {filename} does not exist.")
+        self._filename = filename
 
         self._header = self._get_header_from_file()
 
@@ -86,10 +86,6 @@ class Colvar(object):
             self._time = self._data[idx]
             self._data = np.delete(self._data, idx, axis=0)
             self._header.pop(idx)
-
-        # stride the data
-        if stride > 1:
-            self.stride(stride)
         
         return self
 
