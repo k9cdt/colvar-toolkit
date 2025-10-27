@@ -5,19 +5,21 @@ This class handles a PLUMED style COLVAR file.
 from __future__ import annotations
 
 import numpy as np
-from numpy._typing._array_like import NDArray
 from pathlib import Path
 
 
 class Colvar(object):
 
-    def __init__(self, header=[], time=None, data=np.array([])) -> None:
-        self._header = header
+    def __init__(self, header=None, time=None, data=None) -> None:
+        self._header = list(header) if header is not None else []
         if time is not None:
-            self._time = time.reshape(1, -1)
+            self._time = np.asarray(time).ravel()
         else:
             self._time = None
-        self._data = data
+        if data is not None:
+            self._data = np.asarray(data)
+        else:
+            self._data = np.array([])
 
     @classmethod
     def from_file(cls, filename: str) -> Colvar:
@@ -129,9 +131,9 @@ class Colvar(object):
 
         arg_arr = np.zeros(len(base), dtype=int)
         for i, k in enumerate(base):
-            if k in new:
-                arg_arr[new.index(k)] = i
-            else:
+            try:
+                arg_arr[i] = new.index(k)
+            except ValueError:
                 return None
         return arg_arr
     
@@ -206,7 +208,7 @@ class Colvar(object):
             data = Colvar.from_file(data)
 
         if self.shape[1] != data.shape[1]:
-            raise ValueError("The incoming date does not have the same number of entries as the base data.")
+            raise ValueError("The incoming data does not have the same number of entries as the base data.")
 
         self._header += data.header
         self._data = np.append(self._data, data._data, axis=0)
