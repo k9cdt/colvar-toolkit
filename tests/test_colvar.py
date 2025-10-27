@@ -30,6 +30,14 @@ def test_header():
     assert cv.header[0:3] == FIRST_THREE_KEYS
     assert len(cv.header) == DAT_COL
 
+def test_keys():
+    cv = Colvar.from_file(BASE_COLVAR)
+    keys = cv.keys()
+    header = cv.header
+    assert isinstance(keys, list)
+    assert keys == header
+    assert len(keys) == DAT_COL
+
 def test_write():
     cv = Colvar.from_file(BASE_COLVAR)
     check_reproduce(cv)

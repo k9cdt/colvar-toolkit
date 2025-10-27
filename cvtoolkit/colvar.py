@@ -244,6 +244,15 @@ class Colvar(object):
         :rtype: list[str]
         '''
         return self._header
+    
+    def keys(self) -> list[str]:
+        '''
+        The keys of the Colvar. Note that time is not considered one of the fields.
+
+        :return: The keys of the Colvar.
+        :rtype: list[str]
+        '''
+        return self._header
 
     @property
     def shape(self) -> tuple[int]:
